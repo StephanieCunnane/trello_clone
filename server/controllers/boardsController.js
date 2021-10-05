@@ -21,6 +21,9 @@ const getBoard = (req, res, next) => {
     })
     .then((board) => {
       res.json({ board });
+    })
+    .catch((err) => {
+      next(new HttpError("Board doesn't exist, please try again", 404));
     });
 };
 

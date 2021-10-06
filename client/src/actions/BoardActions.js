@@ -44,9 +44,9 @@ export function fetchBoards() {
     apiClient.getBoards((data) => dispatch(fetchBoardsSuccess(data.boards)));
   };
 }
-export function fetchBoard() {
+export function fetchBoard(id) {
   return function (dispatch) {
-    apiClient.getBoard((data) => dispatch(fetchBoardSuccess(data.board)));
+    apiClient.getBoard(id, (data) => dispatch(fetchBoardSuccess(data.board)));
   };
 }
 

@@ -5,10 +5,21 @@ dispatching an action to the store and render the board.
 */
 
 import { useSelector, useDispatch } from "react-redux";
-// import * as actions from "../../actions/BoardActions";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import * as actions from "../../actions/BoardActions";
 
-function Board(props) {
-  return <div></div>;
+function Board() {
+  const boardId = useParams().id;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actions.fetchBoard(boardId));
+  });
+  return (
+    <div>
+      <p>hi there</p>
+    </div>
+  );
 }
 
 export default Board;

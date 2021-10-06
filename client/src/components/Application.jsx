@@ -13,12 +13,20 @@ import DueDatePopover from "./ui/DueDatePopover";
 import LabelsPopover from "./ui/LabelsPopover";
 import MoveCardPopover from "./ui/MoveCardPopover";
 import SingleBoard from "./ui/SingleBoard";
+import Board from './dashboard/Board'
+
+/*
+ add a route for `/boards/:id` to its render method. // render method? From class-based components?
+     - Note: Route component comes from react-router-dom
+     - create a new Board component: components/dashboard/Board
+*/
 
 const Application = () => {
   return (
     <div>
       <TopNav />
       <Route path="/" exact component={BoardsDashboardContainer} />
+      <Route path="/boards/:id" component={Board} />
       {/* UI examples */}
       <Route path="/ui" exact component={UISection} />
       <Route path="/ui/allBoards" component={AllBoards} />

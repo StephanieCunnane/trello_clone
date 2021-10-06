@@ -3,6 +3,7 @@
 ## actions
 
 - define the actions (normal and thunk type)
+- thunk type actions access the frontend API
 
 ## assets
 

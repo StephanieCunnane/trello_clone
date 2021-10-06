@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Create the List schema
 // Create the Card schema
 
 /*
@@ -47,17 +46,24 @@ board ->
 }
 */
 
-const BoardSchema = new Schema(
-  {
-    title: {
-      type: String,
-      required: [true, "The Board title is required"],
-    },
-    lists: [{ type: Schema.Types.ObjectId, ref: "List" }],
+const CardSchema = new Schema({
+  title: {
+    type: String,
+    required: [true, "The Card title is required"],
   },
-  { timestamps: true }
-);
 
-const Board = mongoose.model("Board", BoardSchema);
+  listId: {
+    type: Schema.Types.ObjectId,
+    ref: "List",
+  },
+  dueDate: Date,
+  labels: [String],
+  description: String,
+  boardId: { type: Schema.Types.ObjectId, ref: "Board" },
+  position: Number,
+  commentsCount: Number,
+});
 
-module.exports = Board;
+const Card = mongoose.model("Card", CardSchema);
+
+module.exports = Card;

@@ -1,4 +1,6 @@
 const Board = require("../models/board");
+const List = require("../models/list");
+const Card = require("../models/card");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 
@@ -9,6 +11,35 @@ const getBoards = (req, res, next) => {
     });
   });
 };
+// findById
+
+const getBoard = (req, res, next) => {
+  Board.findById(req.params.id)
+    .populate({
+      path: "lists",
+      populate: { path: "cards" },
+    })
+    .then((board) => {
+      res.json({ board });
+    })
+    .catch((err) => {
+      next(new HttpError("Board doesn't exist, please try again", 404));
+    });
+};
+
+/*
+
+- Within the `getBoard` function you will use `populate` method to replace the
+ specified paths in the document with the document(s) from other collection(s). 
+ You can read more about it here.
+
+- Extract the id from the req object
+- Find the board by id
+co
+- Find all the lists by boardId
+- Find all the cards by listId
+- Send the board
+*/
 
 const createBoard = (req, res, next) => {
   const errors = validationResult(req);
@@ -29,4 +60,5 @@ const createBoard = (req, res, next) => {
 };
 
 exports.getBoards = getBoards;
+exports.getBoard = getBoard;
 exports.createBoard = createBoard;

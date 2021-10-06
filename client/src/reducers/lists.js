@@ -2,7 +2,7 @@
 case BOARD_FETCHED
   - add all the lists into a new array
     - lists = board.lists
-    -
+    -sddsdsdsds
 */
 
 export default function lists(state = [], action) {

@@ -27,20 +27,6 @@ const getBoard = (req, res, next) => {
     });
 };
 
-/*
-
-- Within the `getBoard` function you will use `populate` method to replace the
- specified paths in the document with the document(s) from other collection(s). 
- You can read more about it here.
-
-- Extract the id from the req object
-- Find the board by id
-co
-- Find all the lists by boardId
-- Find all the cards by listId
-- Send the board
-*/
-
 const createBoard = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -54,6 +40,35 @@ const createBoard = (req, res, next) => {
       .catch((err) =>
         next(new HttpError("Creating board failed, please try again", 500))
       );
+  } else {
+    return next(new HttpError("The input field is empty.", 404));
+  }
+};
+
+// const ListSchema = new Schema(
+//   {
+//     title: {
+//       type: String,
+//       required: [true, "The List title is required"],
+//     },
+
+//     boardId: {
+//       type: Schema.Types.ObjectId,
+//       ref: "Board",
+//     },
+//     position: Number,
+//     cards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
+//   },
+//   { timestamps: true }
+// );
+
+const createList = (req, res, next) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    const list = { boardId: req.body.boardId, title: req.body.list.title };
+    List.create(list).then((list) => {
+      console.log("continue from here");
+    });
   } else {
     return next(new HttpError("The input field is empty.", 404));
   }

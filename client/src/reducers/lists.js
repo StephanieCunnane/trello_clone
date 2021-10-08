@@ -8,16 +8,21 @@ case BOARD_FETCHED
 
 */
 
+import * as types from "../constants/ActionTypes";
+
 export default function lists(state = [], action) {
   switch (action.type) {
-    case "BOARD_FETCHED":
+    case types.BOARD_FETCHED: {
       const lists = action.board.lists;
       return lists.map((list) => {
         const processedList = { ...list };
         delete processedList.cards;
         return processedList;
       });
-
+    }
+    case types.CREATE_LIST_SUCCESS: {
+      return [...state, action.newList];
+    }
     default:
       return state;
   }

@@ -92,8 +92,6 @@ const createList = async (req, res, next) => {
   }
 };
 
-// handle invalid boardId
-
 exports.getBoards = getBoards;
 exports.getBoard = getBoard;
 exports.createBoard = createBoard;

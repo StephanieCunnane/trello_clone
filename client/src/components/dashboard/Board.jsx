@@ -37,7 +37,7 @@ function Board() {
         </div>
       </header>
       <main>
-        <ExistingLists />
+        <ExistingLists boardId={boardId} />
       </main>
     </>
   );

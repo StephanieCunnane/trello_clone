@@ -1,0 +1,18 @@
+The React component should swap the list title `<p>` tag for an `<input>` tag when it is clicked on. 
+
+Pressing enter during editing the title or blurring the input should submit the change and swap the `<p>` back in.
+
+NOTE: It is important to have the `<p>` and `<input>` wrapped in a `<div>` so that the styles will work properly.
+
+ON CLICK -> allow edit name
+<div>
+  <p onClick={() => setIsEditing(true)}></p>, swapped to <input/>
+</div>
+
+ON CHANGE -> .... (controlled component)
+
+ON ENTER OR ON BLURRING:
+  - send the updated title to backend
+  - if success -> update the title in the frontend (redux store)
+  - if not success -> we leave the title as is
+  - () => setIsEditing(false) (hide the input, show the p)

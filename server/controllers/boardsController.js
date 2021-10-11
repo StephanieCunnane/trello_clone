@@ -70,29 +70,29 @@ X then add listId to board.lists
 X then response back with new list created
 */
 
-const createList = async (req, res, next) => {
-  const errors = validationResult(req);
-  if (errors.isEmpty()) {
-    try {
-      const listData = {
-        boardId: req.body.boardId,
-        title: req.body.list.title,
-      };
+// const createList = async (req, res, next) => {
+//   const errors = validationResult(req);
+//   if (errors.isEmpty()) {
+//     try {
+//       const listData = {
+//         boardId: req.body.boardId,
+//         title: req.body.list.title,
+//       };
 
-      const list = await List.create(listData);
-      const board = await Board.findById(list.boardId);
-      board.lists.push(list._id);
-      await board.save();
-      res.json(list);
-    } catch (error) {
-      res.json({ error });
-    }
-  } else {
-    return next(new HttpError("The input field is empty.", 404));
-  }
-};
+//       const list = await List.create(listData);
+//       const board = await Board.findById(list.boardId);
+//       board.lists.push(list._id);
+//       await board.save();
+//       res.json(list);
+//     } catch (error) {
+//       res.json({ error });
+//     }
+//   } else {
+//     return next(new HttpError("The input field is empty.", 404));
+//   }
+// };
 
 exports.getBoards = getBoards;
 exports.getBoard = getBoard;
 exports.createBoard = createBoard;
-exports.createList = createList;
+// exports.createList = createList;

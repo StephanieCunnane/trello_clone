@@ -16,3 +16,18 @@ ON ENTER OR ON BLURRING:
   - if success -> update the title in the frontend (redux store)
   - if not success -> we leave the title as is
   - () => setIsEditing(false) (hide the input, show the p)
+
+
+
+
+X types: add EDIT_LIST_SUCCESS
+X Set up ApiClient
+X List Actions:
+  X editListSuccess
+    X payload: editedList
+  X editList
+X Lists reducer:
+  - add a case EDIT_LIST_SUCCESS
+    - map state. for each list
+      - if list._id === editedList._id -> return editedList
+      - else -> return list

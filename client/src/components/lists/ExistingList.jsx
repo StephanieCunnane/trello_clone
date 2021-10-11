@@ -18,13 +18,20 @@ ON ENTER OR ON BLURRING:
   */
 
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import ExistingCards from "./cards/ExistingCards";
-
+import * as actions from "../../actions/ListActions";
 const ExistingList = ({ _id, title, boardId, position }) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [enteredText, setEnteredText] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleNewTitle = () => {
+    // CONTINUE FROM HERE
+    // it's sending a request to the backend but it's not being updated.
+    // Probably the title is not included in the object and we are sending undefined (or something like that)
+    dispatch(actions.editListTitle({ _id, enteredText }));
     setIsEditingTitle(false);
     setEnteredText("");
   };

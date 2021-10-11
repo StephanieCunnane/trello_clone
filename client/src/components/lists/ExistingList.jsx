@@ -1,13 +1,64 @@
+/*
+
+ON CLICK -> allow edit name
+<div>
+  <p onClick={() => setIsEditing(true)}></p>, swapped to <input/>
+</div>
+
+ON CHANGE -> .... (controlled component)
+
+determine if Enter was pressed:
+    listen for onKeyUp, 
+
+ON ENTER OR ON BLURRING:
+  - send the updated title to backend
+  - if success -> update the title in the frontend (redux store)
+  - if not success -> we leave the title as is
+  - () => setIsEditing(false) (hide the input, show the p)
+  */
+
+import { useState } from "react";
 import ExistingCards from "./cards/ExistingCards";
 
 const ExistingList = ({ _id, title, boardId, position }) => {
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [enteredText, setEnteredText] = useState("");
+
+  const handleNewTitle = () => {
+    setIsEditingTitle(false);
+    setEnteredText("");
+  };
   return (
     <div className="list-wrapper">
       <div className="list-background">
         <div className="list">
           <a className="more-icon sm-icon" href=""></a>
           <div>
-            <p className="list-title">{title}</p>
+            {!isEditingTitle ? (
+              <p
+                className="list-title"
+                onClick={() => {
+                  setIsEditingTitle(true);
+                  setEnteredText(title);
+                }}
+              >
+                {" "}
+                {title}{" "}
+              </p>
+            ) : (
+              <input
+                className="list-title"
+                value={enteredText}
+                onChange={(e) => setEnteredText(e.target.value)}
+                onKeyUp={(e) => {
+                  if (e.code !== "Enter") return;
+                  handleNewTitle();
+                }}
+                onBlur={() => {
+                  handleNewTitle();
+                }}
+              />
+            )}
           </div>
           <div className="add-dropdown add-top">
             <div className="card"></div>

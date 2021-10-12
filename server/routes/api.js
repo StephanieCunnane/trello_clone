@@ -10,6 +10,7 @@ router.post("/boards", validateBoard, boardsController.createBoard);
 router.post("/lists", listsController.createList);
 router.patch("/lists/:id", listsController.editList);
 router.get("/cards/:id", cardsController.getCard);
+router.post("/cards", cardsController.createCard);
 // add validateList????
 module.exports = router;
 // 615c9754b436b8201fce2e35

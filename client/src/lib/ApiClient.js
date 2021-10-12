@@ -49,6 +49,17 @@ const apiClient = {
       .then(callback)
       .catch(logError);
   },
+
+  editList(editedList, callback) {
+    return axios
+      .patch(`${routes.EDIT_LIST_URL}/${editedList._id}`, {
+        title: editedList.title,
+        position: editedList.position,
+      })
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
 };
 
 export default apiClient;

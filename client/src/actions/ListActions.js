@@ -16,3 +16,23 @@ export function createList(newList, callback) {
     });
   };
 }
+
+export function editedListSuccess(editedList) {
+  return {
+    type: types.EDIT_LIST_SUCCESS,
+    editedList: editedList,
+  }; // {_id, title}
+}
+
+export function editListTitle(editListData) {
+  console.log(editListData);
+  return function (dispatch) {
+    apiClient.editList(editListData, (data) => {
+      dispatch(editedListSuccess(data));
+
+      // if (callback) {
+      //   callback(data);
+      // }
+    });
+  };
+}

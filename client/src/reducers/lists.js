@@ -23,6 +23,16 @@ export default function lists(state = [], action) {
     case types.CREATE_LIST_SUCCESS: {
       return [...state, action.newList];
     }
+
+    case types.EDIT_LIST_SUCCESS: {
+      return state.map((list) => {
+        if (list._id === action.editedList._id) {
+          return action.editedList;
+        } else {
+          return list;
+        }
+      });
+    }
     default:
       return state;
   }

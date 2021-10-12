@@ -28,9 +28,6 @@ const ExistingList = ({ _id, title, boardId, position }) => {
   const dispatch = useDispatch();
 
   const handleNewTitle = () => {
-    // CONTINUE FROM HERE
-    // it's sending a request to the backend but it's not being updated.
-    // Probably the title is not included in the object and we are sending undefined (or something like that)
     dispatch(actions.editListTitle({ _id, title: enteredText }));
     setIsEditingTitle(false);
     setEnteredText("");

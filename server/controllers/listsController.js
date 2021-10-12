@@ -2,23 +2,6 @@ const List = require("../models/list");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 
-// const ListSchema = new Schema(
-//   {
-//     title: {
-//       type: String,
-//       required: [true, "The List title is required"],
-//     },
-
-//     boardId: {
-//       type: Schema.Types.ObjectId,
-//       ref: "Board",
-//     },
-//     position: Number,
-//     cards: [{ type: Schema.Types.ObjectId, ref: "Card" }],
-//   },
-//   { timestamps: true }
-// );
-
 const createList = async (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -40,16 +23,6 @@ const createList = async (req, res, next) => {
     return next(new HttpError("The input field is empty.", 404));
   }
 };
-
-// grab req.body.title
-// req.params.id
-/*
-- find list by id
-- if title is provided and not empty -> update title
-- if position is provided and a number -> update position
-- save the list
-- respond with modified list
-*/
 
 const editList = async (req, res, next) => {
   const errors = validationResult(req);

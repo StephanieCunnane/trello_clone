@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "start-watch": "nodemon index.js",
-    "dev": "concurrently \"yarn run start-watch\" \"cd ../client && yarn start\""
+    "dev": "concurrently \"yarn run start-watch\" \"cd ../client && yarn start\"",
+    "dev2": "concurrently \"yarn run start-watch\" \"cd ../client && npm start\"",
+    "dev3": "nodemon index.js"
   },
   "author": "Ojini Jude",
   "license": "MIT",
@@ -20,6 +22,6 @@
   },
   "devDependencies": {
     "concurrently": "^4.0.1",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.19.4"
   }
 }

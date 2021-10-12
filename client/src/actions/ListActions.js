@@ -24,9 +24,10 @@ export function editedListSuccess(editedList) {
   }; // {_id, title}
 }
 
-export function editListTitle(editedListTitle) {
+export function editListTitle(editListData) {
+  console.log(editListData);
   return function (dispatch) {
-    apiClient.editList(editedListTitle, (data) => {
+    apiClient.editList(editListData, (data) => {
       dispatch(editedListSuccess(data));
 
       // if (callback) {

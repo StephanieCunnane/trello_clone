@@ -25,9 +25,11 @@ export default function lists(state = [], action) {
     }
 
     case types.EDIT_LIST_SUCCESS: {
+      const processedList = { ...action.editedList };
+      delete processedList.cards;
       return state.map((list) => {
-        if (list._id === action.editedList._id) {
-          return action.editedList;
+        if (list._id === processedList._id) {
+          return processedList;
         } else {
           return list;
         }

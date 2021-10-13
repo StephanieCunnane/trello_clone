@@ -13,7 +13,7 @@ import DueDatePopover from "./ui/DueDatePopover";
 import LabelsPopover from "./ui/LabelsPopover";
 import MoveCardPopover from "./ui/MoveCardPopover";
 import SingleBoard from "./ui/SingleBoard";
-import Board from './dashboard/Board'
+import Board from "./dashboard/Board";
 
 /*
  add a route for `/boards/:id` to its render method. // render method? From class-based components?
@@ -26,7 +26,8 @@ const Application = () => {
     <div>
       <TopNav />
       <Route path="/" exact component={BoardsDashboardContainer} />
-      <Route path="/boards/:id" component={Board} />
+      <Route path="/(boards|cards)/:id" component={Board} />
+      <Route path="/cards/:id" component={Card} />
       {/* UI examples */}
       <Route path="/ui" exact component={UISection} />
       <Route path="/ui/allBoards" component={AllBoards} />

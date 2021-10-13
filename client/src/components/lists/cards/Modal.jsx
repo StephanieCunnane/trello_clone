@@ -1,5 +1,19 @@
-import React from "react";
-const Card = () => {
+/*
+get id (useParams)
+with id, get card from Redux store
+
+ const boards = useSelector((state) => state.boards);
+  const board = boards.filter((board) => board._id === boardId)[0];
+*/
+import { useParams } from "react-router";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+
+const Modal = () => {
+  const cardId = useParams().id;
+  const cards = useSelector((state) => state.cards);
+  const card = cards.filter((c) => c._id === cardId)[0];
+  console.log(card);
   return (
     <div id="modal-container">
       <div className="screen"></div>
@@ -7,10 +21,12 @@ const Card = () => {
         <i className="x-icon icon close-modal"></i>
         <header>
           <i className="card-icon icon .close-modal"></i>
-          <textarea className="list-title" style={{ height: "45px" }}>
-            Cards do many cool things. Click on this card to open it and learn
-            more...
-          </textarea>
+          <textarea
+            className="list-title"
+            style={{ height: "45px" }}
+            value="Cards do many cool things. Click on this card to open it and learn
+            more..."
+          ></textarea>
           <p>
             in list <a className="link">Stuff to try (this is a list)</a>
             <i className="sub-icon sm-icon"></i>
@@ -51,8 +67,6 @@ const Card = () => {
                       id="dueDateCheckbox"
                       type="checkbox"
                       className="checkbox"
-                      checked=""
-                      onChange={() => {}}
                     />
                     Aug 4 at 10:42 AM <span>(past due)</span>
                   </div>
@@ -67,8 +81,8 @@ const Card = () => {
                   Cards have a symbol to indicate if they contain a description.
                 </p>
                 <p id="description-edit-options" className="hidden">
-                  You have unsaved edits on this field.{" "}
-                  <span className="link">View edits</span> -{" "}
+                  You have unsaved edits on this field.
+                  <span className="link">View edits</span> -
                   <span className="link">Discard</span>
                 </p>
               </form>
@@ -82,7 +96,6 @@ const Card = () => {
                 <div className="comment">
                   <label>
                     <textarea
-                      required=""
                       rows="1"
                       placeholder="Write a comment..."
                     ></textarea>
@@ -118,21 +131,22 @@ const Card = () => {
                     <span>The activities are not functional.</span>
                   </div>
                   <small>
-                    22 minutes ago - <span className="link">Edit</span> -{" "}
+                    22 minutes ago - <span className="link">Edit</span> -
                     <span className="link">Delete</span>
                   </small>
                   <div className="comment">
                     <label>
-                      <textarea required="" rows="1">
-                        The activities have not been implemented yet.
-                      </textarea>
+                      <textarea
+                        rows="1"
+                        value="The activities have not been implemented yet."
+                      ></textarea>
                       <div>
                         <a className="light-button card-icon sm-icon"></a>
                         <a className="light-button smiley-icon sm-icon"></a>
                         <a className="light-button email-icon sm-icon"></a>
                       </div>
                       <div>
-                        <p>You haven&apos;t typed anything!</p>
+                        <p>You haven't typed anything!</p>
                         <input
                           type="submit"
                           className="button not-implemented"
@@ -162,21 +176,22 @@ const Card = () => {
                     <span>Example of a comment.</span>
                   </div>
                   <small>
-                    22 minutes ago - <span className="link">Edit</span> -{" "}
+                    22 minutes ago - <span className="link">Edit</span> -
                     <span className="link">Delete</span>
                   </small>
                   <div className="comment">
                     <label>
-                      <textarea required="" rows="1">
-                        Example of a comment.
-                      </textarea>
+                      <textarea
+                        rows="1"
+                        value="Example of a comment."
+                      ></textarea>
                       <div>
                         <a className="light-button card-icon sm-icon"></a>
                         <a className="light-button smiley-icon sm-icon"></a>
                         <a className="light-button email-icon sm-icon"></a>
                       </div>
                       <div>
-                        <p>You haven&apos;t typed anything!</p>
+                        <p>You haven't typed anything!</p>
                         <input
                           type="submit"
                           className="button not-implemented"
@@ -224,7 +239,7 @@ const Card = () => {
             </li>
             <hr />
             <li className="archive-button">
-              <i className="file-icon sm-icon "></i>Archive
+              <i className="file-icon sm-icon"></i>Archive
             </li>
           </ul>
           <ul className="light-list">
@@ -236,4 +251,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default Modal;

@@ -1,18 +1,22 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import TopNav from "./shared/TopNav";
-import BoardsDashboardContainer from "./dashboard/BoardsDashboardContainer";
+
+// UI EXAMPLES
 import UISection from "./ui/UISection";
 import AllBoards from "./ui/AllBoards";
 import CardArchived from "./ui/CardArchived";
 import CardEditingDescription from "./ui/CardEditingDescription";
-import Card from "./ui/Card";
 import CopyCardPopover from "./ui/CopyCardPopover";
 import CreateBoard from "./ui/CreateBoard";
 import DueDatePopover from "./ui/DueDatePopover";
 import LabelsPopover from "./ui/LabelsPopover";
 import MoveCardPopover from "./ui/MoveCardPopover";
 import SingleBoard from "./ui/SingleBoard";
+import Card from "./ui/Card";
+// OUR COMPONENTS
+import TopNav from "./shared/TopNav";
+import BoardsDashboardContainer from "./dashboard/BoardsDashboardContainer";
+import Modal from "./lists/cards/Modal";
 import Board from "./dashboard/Board";
 
 /*
@@ -27,7 +31,7 @@ const Application = () => {
       <TopNav />
       <Route path="/" exact component={BoardsDashboardContainer} />
       <Route path="/(boards|cards)/:id" component={Board} />
-      <Route path="/cards/:id" component={Card} />
+      <Route path="/cards/:id" component={Modal} />
       {/* UI examples */}
       <Route path="/ui" exact component={UISection} />
       <Route path="/ui/allBoards" component={AllBoards} />

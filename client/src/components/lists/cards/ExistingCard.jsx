@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 const ExistingCard = ({
   _id,
   title,
@@ -22,7 +23,7 @@ const ExistingCard = ({
               className={`card-label ${label} colorblindable`}
             ></div>
           ))}
-          <p>{description}</p>
+          <p>{title}</p>
         </div>
         <div className="card-icons">
           <i className="clock-icon sm-icon overdue-recent completed">

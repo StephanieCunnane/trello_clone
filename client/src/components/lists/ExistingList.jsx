@@ -1,25 +1,14 @@
 /* eslint-disable react/react-in-jsx-scope */
-/*
-
-
-The new card form is active when the parent `.list-wrapper` has the `add-dropdown-active` class 
-and the `.add-dropdown.add-bottom` element has the `active-card` class.
-
-Since only one list should have the form active at a time, 
-only one list should  have the `add-dropdown-active` class at a time.
-
-When the user clicks Add a Card, we add the add-dropdown-active class to the list-wrapper div
-AND the active-card class to the form container
-  */
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import ExistingCards from "./cards/ExistingCards";
 import * as actions from "../../actions/ListActions";
+import AddCard from "./cards/AddCard";
 const ExistingList = ({ _id, title, boardId, position }) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [enteredText, setEnteredText] = useState("");
-  const [showAddCardForm, setshowAddCardForm] = useState(false);
+  const [showAddCardForm, setShowAddCardForm] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -72,32 +61,11 @@ const ExistingList = ({ _id, title, boardId, position }) => {
           </div>
           <ExistingCards listId={_id} />
           {/* here */}
-          <div
-            className={`add-dropdown add-bottom ${
-              showAddCardForm ? "active-card" : ""
-            }`}
-          >
-            <div className="card">
-              <div className="card-info"></div>
-              <textarea name="add-card"></textarea>
-              <div className="members"></div>
-            </div>
-            <a className="button">Add</a>
-            <i
-              className="x-icon icon"
-              onClick={() => setshowAddCardForm(false)}
-            ></i>
-            <div className="add-options">
-              <span>...</span>
-            </div>
-          </div>
-          <div
-            className="add-card-toggle"
-            data-position="bottom"
-            onClick={() => setshowAddCardForm(true)}
-          >
-            Add a card...
-          </div>
+          <AddCard
+            listId={_id}
+            showAddCardForm={showAddCardForm}
+            setShowAddCardForm={setShowAddCardForm}
+          />
         </div>
       </div>
     </div>

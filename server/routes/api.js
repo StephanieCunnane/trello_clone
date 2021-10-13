@@ -13,4 +13,3 @@ router.get("/cards/:id", cardsController.getCard);
 router.post("/cards", cardsController.createCard);
 // add validateList????
 module.exports = router;
-// 615c9754b436b8201fce2e35

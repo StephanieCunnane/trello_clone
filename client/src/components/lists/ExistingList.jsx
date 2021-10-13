@@ -1,29 +1,14 @@
-/*
-
-ON CLICK -> allow edit name
-<div>
-  <p onClick={() => setIsEditing(true)}></p>, swapped to <input/>
-</div>
-
-ON CHANGE -> .... (controlled component)
-
-determine if Enter was pressed:
-    listen for onKeyUp, 
-
-ON ENTER OR ON BLURRING:
-  - send the updated title to backend
-  - if success -> update the title in the frontend (redux store)
-  - if not success -> we leave the title as is
-  - () => setIsEditing(false) (hide the input, show the p)
-  */
+/* eslint-disable react/react-in-jsx-scope */
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import ExistingCards from "./cards/ExistingCards";
 import * as actions from "../../actions/ListActions";
+import AddCard from "./cards/AddCard";
 const ExistingList = ({ _id, title, boardId, position }) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [enteredText, setEnteredText] = useState("");
+  const [showAddCardForm, setShowAddCardForm] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -33,7 +18,9 @@ const ExistingList = ({ _id, title, boardId, position }) => {
     setEnteredText("");
   };
   return (
-    <div className="list-wrapper">
+    <div
+      className={`list-wrapper ${showAddCardForm ? "add-dropdown-active" : ""}`}
+    >
       <div className="list-background">
         <div className="list">
           <a className="more-icon sm-icon" href=""></a>
@@ -73,21 +60,12 @@ const ExistingList = ({ _id, title, boardId, position }) => {
             </div>
           </div>
           <ExistingCards listId={_id} />
-          <div className="add-dropdown add-bottom">
-            <div className="card">
-              <div className="card-info"></div>
-              <textarea name="add-card"></textarea>
-              <div className="members"></div>
-            </div>
-            <a className="button">Add</a>
-            <i className="x-icon icon"></i>
-            <div className="add-options">
-              <span>...</span>
-            </div>
-          </div>
-          <div className="add-card-toggle" data-position="bottom">
-            Add a card...
-          </div>
+          {/* here */}
+          <AddCard
+            listId={_id}
+            showAddCardForm={showAddCardForm}
+            setShowAddCardForm={setShowAddCardForm}
+          />
         </div>
       </div>
     </div>

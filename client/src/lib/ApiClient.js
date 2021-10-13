@@ -60,6 +60,14 @@ const apiClient = {
       .then(callback)
       .catch(logError);
   },
+
+  postCard(newCard, callback) {
+    return axios
+      .post(`${routes.ADD_CARD_URL}`, newCard)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
 };
 
 export default apiClient;

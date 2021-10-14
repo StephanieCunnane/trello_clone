@@ -1,6 +1,34 @@
 /*
 THURSDAY:
 - add feature to ensure that the board is displayed in the background after refresh
+
+{
+  "card": {
+    "labels": [
+      "red",
+      "blue",
+      "green"
+    ],
+    "_id": "615c9754b436b8201fce2e35",
+    "title": "card11",
+    "position": 123,
+    "dueDate": null,
+    "archived": false,
+    "completed": false,
+    "description": "hi there. list 1",
+    "listId": "615c9607b436b8201fce2e33",
+    "boardId": "615c95a0b436b8201fce2e32",
+    "commentsCount": 0
+  }
+}
+
+hook up:
+  title - DONE
+  labels - DONE
+  due date - DONE
+  description
+  existing comments
+  activity
 */
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
@@ -9,7 +37,8 @@ import { useState } from "react";
 const Modal = () => {
   const cardId = useParams().id;
   const cards = useSelector((state) => state.cards);
-  const card = cards.filter((c) => c._id === cardId)[0];
+  const card = cards.filter((c) => c._id === cardId)[0] || {};
+  console.log(card);
   return (
     <div id="modal-container">
       <div className="screen"></div>
@@ -20,8 +49,7 @@ const Modal = () => {
           <textarea
             className="list-title"
             style={{ height: "45px" }}
-            value="Cards do many cool things. Click on this card to open it and learn
-            more..."
+            value={card.title}
           ></textarea>
           <p>
             in list <a className="link">Stuff to try (this is a list)</a>
@@ -34,24 +62,16 @@ const Modal = () => {
               <ul className="modal-details-list">
                 <li className="labels-section">
                   <h3>Labels</h3>
-                  <div className="member-container">
-                    <div className="green label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="yellow label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="orange label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="blue label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="purple label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="red label colorblindable"></div>
-                  </div>
+                  {(card.labels || []).map((colorStr) => {
+                    return (
+                      <div className="member-container">
+                        <div
+                          className={`${colorStr} label colorblindable`}
+                        ></div>
+                      </div>
+                    );
+                  })}
+
                   <div className="member-container">
                     <i className="plus-icon sm-icon"></i>
                   </div>
@@ -64,7 +84,8 @@ const Modal = () => {
                       type="checkbox"
                       className="checkbox"
                     />
-                    Aug 4 at 10:42 AM <span>(past due)</span>
+                    {card.dueDate ? card.dueDate.toString() : "No due date"}
+                    <span>{card.dueDate > Date.now() ? "(past due)" : ""}</span>
                   </div>
                 </li>
               </ul>

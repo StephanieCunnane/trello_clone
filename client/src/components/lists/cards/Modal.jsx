@@ -1,7 +1,6 @@
 /*
 THURSDAY:
 - add feature to ensure that the board is displayed in the background after refresh
-
 {
   "card": {
     "labels": [
@@ -21,13 +20,11 @@ THURSDAY:
     "commentsCount": 0
   }
 }
-
 hook up:
   title - DONE
   labels - DONE
   due date - DONE
-  description
-  existing comments
+  description - DONE
   activity
 */
 import { useParams } from "react-router";
@@ -94,9 +91,7 @@ const Modal = () => {
                 <span id="description-edit" className="link">
                   Edit
                 </span>
-                <p className="textarea-overlay">
-                  Cards have a symbol to indicate if they contain a description.
-                </p>
+                <p className="textarea-overlay">{card.description}</p>
                 <p id="description-edit-options" className="hidden">
                   You have unsaved edits on this field.
                   <span className="link">View edits</span> -
@@ -139,6 +134,7 @@ const Modal = () => {
                 <li className="not-implemented">Show Details</li>
               </ul>
               <ul className="modal-activity-list">
+                {/* Map comments to show them as activites */}
                 <li>
                   <div className="member-container">
                     <div className="card-member">TP</div>

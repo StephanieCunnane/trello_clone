@@ -6,17 +6,55 @@ dispatching an action to the store and render the board.
 
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import * as actions from "../../actions/BoardActions";
+import * as cardActions from "../../actions/CardActions";
 
 import ExistingLists from "../lists/ExistingLists";
 
 function Board() {
-  const boardId = useParams().id;
+  // const boardId = useParams().id; DELETE
+  // const boardId = useParams().id;
+  /*
+    0) fetch all cards from redux store (useSelector)
+  */
+  const id = useParams().id;
+  const cards = useSelector((state) => state.cards);
+  const location = useLocation();
+  const path = location.pathname.match(/\/[a-z]+/, "i")[0];
+  // console.log(id);
+  // console.log(location);
+  // console.log(path);
+  // console.log(cards);
+  let boardId;
+  let cardId;
+  if (path === "/boards") {
+    boardId = id;
+  } else if (path === "/cards") {
+    cardId = id;
+    const card = cards.find((card) => card._id === cardId);
+    if (card) {
+      boardId = card.boardId;
+    }
+  }
+  /*
+  1) check if path matches /boards
+    - YES -> boardId = useParams().id
+    - NO -> find card given the id
+      if card -> boardId = card.boardId
+  */
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(actions.fetchBoard(boardId));
+    if (boardId) {
+      dispatch(actions.fetchBoard(boardId));
+    }
   }, [dispatch, boardId]);
+
+  useEffect(() => {
+    if (cardId) {
+      dispatch(cardActions.fetchCard(cardId));
+    }
+  }, [dispatch, cardId]);
 
   const boards = useSelector((state) => state.boards);
   const board = boards.filter((board) => board._id === boardId)[0];

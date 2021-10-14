@@ -1,5 +1,41 @@
-import React from "react";
-const Card = () => {
+/*
+THURSDAY:
+- add feature to ensure that the board is displayed in the background after refresh
+{
+  "card": {
+    "labels": [
+      "red",
+      "blue",
+      "green"
+    ],
+    "_id": "615c9754b436b8201fce2e35",
+    "title": "card11",
+    "position": 123,
+    "dueDate": null,
+    "archived": false,
+    "completed": false,
+    "description": "hi there. list 1",
+    "listId": "615c9607b436b8201fce2e33",
+    "boardId": "615c95a0b436b8201fce2e32",
+    "commentsCount": 0
+  }
+}
+hook up:
+  title - DONE
+  labels - DONE
+  due date - DONE
+  description - DONE
+  activity
+*/
+import { useParams } from "react-router";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+
+const Modal = () => {
+  const cardId = useParams().id;
+  const cards = useSelector((state) => state.cards);
+  const card = cards.filter((c) => c._id === cardId)[0] || {};
+  console.log(card);
   return (
     <div id="modal-container">
       <div className="screen"></div>
@@ -7,10 +43,11 @@ const Card = () => {
         <i className="x-icon icon close-modal"></i>
         <header>
           <i className="card-icon icon .close-modal"></i>
-          <textarea className="list-title" style={{ height: "45px" }}>
-            Cards do many cool things. Click on this card to open it and learn
-            more...
-          </textarea>
+          <textarea
+            className="list-title"
+            style={{ height: "45px" }}
+            value={card.title}
+          ></textarea>
           <p>
             in list <a className="link">Stuff to try (this is a list)</a>
             <i className="sub-icon sm-icon"></i>
@@ -22,24 +59,16 @@ const Card = () => {
               <ul className="modal-details-list">
                 <li className="labels-section">
                   <h3>Labels</h3>
-                  <div className="member-container">
-                    <div className="green label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="yellow label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="orange label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="blue label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="purple label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="red label colorblindable"></div>
-                  </div>
+                  {(card.labels || []).map((colorStr) => {
+                    return (
+                      <div className="member-container">
+                        <div
+                          className={`${colorStr} label colorblindable`}
+                        ></div>
+                      </div>
+                    );
+                  })}
+
                   <div className="member-container">
                     <i className="plus-icon sm-icon"></i>
                   </div>
@@ -51,10 +80,9 @@ const Card = () => {
                       id="dueDateCheckbox"
                       type="checkbox"
                       className="checkbox"
-                      checked=""
-                      onChange={() => {}}
                     />
-                    Aug 4 at 10:42 AM <span>(past due)</span>
+                    {card.dueDate ? card.dueDate.toString() : "No due date"}
+                    <span>{card.dueDate > Date.now() ? "(past due)" : ""}</span>
                   </div>
                 </li>
               </ul>
@@ -63,12 +91,10 @@ const Card = () => {
                 <span id="description-edit" className="link">
                   Edit
                 </span>
-                <p className="textarea-overlay">
-                  Cards have a symbol to indicate if they contain a description.
-                </p>
+                <p className="textarea-overlay">{card.description}</p>
                 <p id="description-edit-options" className="hidden">
-                  You have unsaved edits on this field.{" "}
-                  <span className="link">View edits</span> -{" "}
+                  You have unsaved edits on this field.
+                  <span className="link">View edits</span> -
                   <span className="link">Discard</span>
                 </p>
               </form>
@@ -82,7 +108,6 @@ const Card = () => {
                 <div className="comment">
                   <label>
                     <textarea
-                      required=""
                       rows="1"
                       placeholder="Write a comment..."
                     ></textarea>
@@ -109,6 +134,7 @@ const Card = () => {
                 <li className="not-implemented">Show Details</li>
               </ul>
               <ul className="modal-activity-list">
+                {/* Map comments to show them as activites */}
                 <li>
                   <div className="member-container">
                     <div className="card-member">TP</div>
@@ -118,21 +144,22 @@ const Card = () => {
                     <span>The activities are not functional.</span>
                   </div>
                   <small>
-                    22 minutes ago - <span className="link">Edit</span> -{" "}
+                    22 minutes ago - <span className="link">Edit</span> -
                     <span className="link">Delete</span>
                   </small>
                   <div className="comment">
                     <label>
-                      <textarea required="" rows="1">
-                        The activities have not been implemented yet.
-                      </textarea>
+                      <textarea
+                        rows="1"
+                        value="The activities have not been implemented yet."
+                      ></textarea>
                       <div>
                         <a className="light-button card-icon sm-icon"></a>
                         <a className="light-button smiley-icon sm-icon"></a>
                         <a className="light-button email-icon sm-icon"></a>
                       </div>
                       <div>
-                        <p>You haven&apos;t typed anything!</p>
+                        <p>You haven't typed anything!</p>
                         <input
                           type="submit"
                           className="button not-implemented"
@@ -162,21 +189,22 @@ const Card = () => {
                     <span>Example of a comment.</span>
                   </div>
                   <small>
-                    22 minutes ago - <span className="link">Edit</span> -{" "}
+                    22 minutes ago - <span className="link">Edit</span> -
                     <span className="link">Delete</span>
                   </small>
                   <div className="comment">
                     <label>
-                      <textarea required="" rows="1">
-                        Example of a comment.
-                      </textarea>
+                      <textarea
+                        rows="1"
+                        value="Example of a comment."
+                      ></textarea>
                       <div>
                         <a className="light-button card-icon sm-icon"></a>
                         <a className="light-button smiley-icon sm-icon"></a>
                         <a className="light-button email-icon sm-icon"></a>
                       </div>
                       <div>
-                        <p>You haven&apos;t typed anything!</p>
+                        <p>You haven't typed anything!</p>
                         <input
                           type="submit"
                           className="button not-implemented"
@@ -224,7 +252,7 @@ const Card = () => {
             </li>
             <hr />
             <li className="archive-button">
-              <i className="file-icon sm-icon "></i>Archive
+              <i className="file-icon sm-icon"></i>Archive
             </li>
           </ul>
           <ul className="light-list">
@@ -236,4 +264,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default Modal;

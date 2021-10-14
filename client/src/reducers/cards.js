@@ -12,6 +12,17 @@ export default function cards(state = [], action) {
       const newCard = action.newCard;
       return [...state, newCard];
     }
+
+    case types.FETCH_CARD_SUCCESS: {
+      const fetchedCard = action.card;
+      const cards = [...state];
+      const cardIdx = cards.findIndex((card) => card._id === fetchedCard._id);
+
+      if (cardIdx === -1) return [...cards, fetchedCard];
+      cards[cardIdx] = fetchedCard;
+      return cards;
+    }
+
     default:
       return state;
   }

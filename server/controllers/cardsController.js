@@ -22,6 +22,15 @@ const createCard = async (req, res, next) => {
         listId: req.body.listId,
         boardId,
         title: req.body.card.title,
+        dueDate: null,
+        labels: [],
+        description: "",
+        position: 0,
+        commentsCount: 0,
+        comments: [],
+        archived: false,
+        completed: false,
+        // actions TBC 2022
       };
       const card = await Card.create(cardData);
       list.cards.push(card._id);

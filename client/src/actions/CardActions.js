@@ -8,8 +8,19 @@ export function createCardSuccess(newCard) {
 export function createCard(newCard) {
   return (dispatch) => {
     apiClient.postCard(newCard, (data) => {
-      console.log(data);
       dispatch(createCardSuccess(data.card));
+    });
+  };
+}
+
+export function fetchCardSuccess(card) {
+  return { type: types.FETCH_CARD_SUCCESS, card: card };
+}
+
+export function fetchCard(id) {
+  return (dispatch) => {
+    apiClient.getCard(id, (data) => {
+      dispatch(fetchCardSuccess(data.card));
     });
   };
 }

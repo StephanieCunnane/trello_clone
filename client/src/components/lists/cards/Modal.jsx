@@ -1,9 +1,6 @@
 /*
-get id (useParams)
-with id, get card from Redux store
-
- const boards = useSelector((state) => state.boards);
-  const board = boards.filter((board) => board._id === boardId)[0];
+THURSDAY:
+- add feature to ensure that the board is displayed in the background after refresh
 */
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
@@ -13,7 +10,6 @@ const Modal = () => {
   const cardId = useParams().id;
   const cards = useSelector((state) => state.cards);
   const card = cards.filter((c) => c._id === cardId)[0];
-  console.log(card);
   return (
     <div id="modal-container">
       <div className="screen"></div>

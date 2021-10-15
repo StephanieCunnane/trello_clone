@@ -17,7 +17,7 @@ const getBoard = (req, res, next) => {
   Board.findById(req.params.id)
     .populate({
       path: "lists",
-      populate: { path: "cards" },
+      populate: { path: "cards", populate: { path: "comments" } },
     })
     .then((board) => {
       res.json({ board });

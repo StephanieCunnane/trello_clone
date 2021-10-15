@@ -18,7 +18,7 @@ const CardSchema = new Schema(
     boardId: { type: Schema.Types.ObjectId, ref: "Board" },
     position: Number,
     commentsCount: Number,
-    comments: [String],
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
     archived: Boolean,
     completed: Boolean,
     actions: Schema.Types.ObjectId,

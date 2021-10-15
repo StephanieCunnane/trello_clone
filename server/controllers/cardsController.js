@@ -43,35 +43,61 @@ const createCard = async (req, res, next) => {
   }
 };
 
-/*
-payload: {
-  "cardId": 9,
-  "comment": {
-    "text": "This is my comment"
+const editList = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    try {
+      const list = await List.findById(req.params.id);
+      const title = (req.body.title || "").trim();
+      const position = req.body.position;
+      if (typeof title === "string" && title.length > 0) {
+        list.title = title;
+      }
+      console.log(position);
+      if (typeof position === "number" && !Number.isNaN(position)) {
+        list.position = position;
+      }
+      await list.save();
+      res.json(list);
+    } catch (error) {
+      res.json({ error });
+    }
+  } else {
+    return next(new HttpError("The input field is empty.", 404));
   }
-}
-
-response: {
-  "_id": 3,
-  "text": "This is my comment",
-  "cardId": 9,
-  "createdAt": "2020-10-08T18:23:59.803Z",
-  "updatedAt": "2020-10-08T18:23:59.803Z"
-}
-*/
+};
 /*
-- create a new comment
-- retrieve card by id
-- push comment id to cards.comments
-- save card
+- retrieve card from db
+- iterate over req.body keys. for each key:
+  - if the value is valid -> modify card entry
+- save Card
+- respond with mod card data
 */
+const editCard = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    try {
+      const card = await Card.findById(req.params.id);
+      console.log({ card });
 
-// cardId doesn't exist -> return 404
-// text is empty -> return 422
+      Object.keys(req.body).forEach((key) => {
+        let value = req.body[key];
+        if (key === "title" || key === "description") {
+          if (typeof value !== "string" || !value.trim()) {
+            return next(new HttpError("Invalid data type or empty field", 422));
+          }
+          card[key] = value.trim();
+        }
 
-/*
-
-*/
+        console.log(key, card[key], value);
+      });
+    } catch (error) {
+      res.json({ error });
+    }
+  } else {
+    return next(new HttpError("The input field is empty.", 404));
+  }
+};
 
 const createComment = async (req, res, next) => {
   const errors = validationResult(req);
@@ -106,3 +132,4 @@ const createComment = async (req, res, next) => {
 exports.getCard = getCard;
 exports.createCard = createCard;
 exports.createComment = createComment;
+exports.editCard = editCard;
